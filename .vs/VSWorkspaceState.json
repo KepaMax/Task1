@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\login",
+    "\\src\\login\\components",
+    "\\src\\mainpage",
+    "\\src\\mainpage\\components"
+  ],
+  "SelectedNode": "\\src\\mainpage\\components\\TodoCard.jsx",
+  "PreviewInSolutionExplorer": false
+}
