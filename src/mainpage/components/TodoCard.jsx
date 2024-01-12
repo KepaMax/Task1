@@ -15,7 +15,7 @@ function TodoCard() {
                     anim id est laborum.
                 </p>
             </div>
-            <div className='flex justify-end items-center rounded-b-[7px]  bg-zinc-400 h-[90px]'>
+            <div className='flex justify-end items-center rounded-b-[7px]  bg-zinc-300 h-[90px]'>
                 <button className='mx-3 text-xl font-bold rounded-[7px] h-3/5 px-6 bg-[#f6b819] hover:bg-yellow-700'>Edit</button>
                 <button className='mx-3 text-xl font-bold rounded-[7px] h-3/5 px-5 bg-[#f6b819] hover:bg-yellow-700'>Delete</button>
             </div>
