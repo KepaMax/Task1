@@ -7,13 +7,13 @@ function LoginCard({ setAuthorized, setEmail, email }) {
     <form className='flex flex-col items-center justify-center w-[700px] h-[310px] shadow-md shadow-zinc-300 rounded-[13px]'>
       <h2 className='text-3xl font-bold mb-5'>Login Form</h2>
       <div className='flex flex-col'>
-        <label className={`${isValid ? 'text-zinc-400' : 'text-red-400'}`}>Email</label>
+        <label className={`${isValid || email == '' ? 'text-zinc-400' : 'text-red-400'}`}>Email</label>
         <input required value={email} type="email"
           onChange={(e) => {
             setEmail(e.target.value)
             setValidation(e.target.checkValidity())
           }}
-          className={`${isValid ? 'border-zinc-300' : 'bg-red-200 text-red-400'} border  rounded-[6px] my-2 px-2`} />
+          className={`${isValid || email == '' ? 'border-zinc-300' : 'bg-red-200 text-red-400'} border  rounded-[6px] my-2 px-2`} />
       </div>
       <button type='submit' disabled={!isValid}
         onClick={() => setAuthorized(isValid)}
