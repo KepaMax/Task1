@@ -4,7 +4,7 @@ function LoginCard({ setAuthorized, setEmail, email }) {
   const [isValid, setValidation] = useState(false)
 
   return (
-    <form className='flex flex-col items-center justify-center w-[700px] h-[310px] shadow-md shadow-zinc-300 rounded-[13px]'>
+    <form className='flex flex-col bg-yellow-500 items-center justify-center w-screen sm:w-[700px] h-screen sm:h-[310px] shadow-md shadow-zinc-300 rounded-[13px]'>
       <h2 className='text-3xl font-bold mb-5'>Login Form</h2>
       <div className='flex flex-col'>
         <label className={`${isValid || email == '' ? 'text-zinc-400' : 'text-red-400'}`}>Email</label>
