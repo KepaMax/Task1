@@ -1,34 +1,50 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Navbar from './components/Navbar'
 import TodoCard from './components/TodoCard'
-import Form from './components/Form'
 import CreateCard from './components/CreateCard'
 import DeleteCard from './components/DeleteCard'
 import EditCard from './components/EditCard'
 
 function Mainpage({ setAuthorized, email }) {
-    const [editVisibility, setEditVisibility] = useState(false)
-    const [createVisibility, setCreateVisibility] = useState(false)
-    const [deleteVisibility, setDeleteVisibility] = useState(false)
+    const [openModal, setOpenModal] = useState('')
+    const [cards, setCards] = useState([])
+    const [filteredCards, setFilteredCards] = useState([])
+    const [activeCard, setActiveCard] = useState()
+
+    useEffect(() => {
+        setFilteredCards(cards.filter((card) => card.author === email));
+    }, [cards])
 
     return (
-        <div className={`relative ${editVisibility || createVisibility || deleteVisibility ? 'overflow-hidden' : ''}`}>
-            <CreateCard createVisibility={createVisibility} setCreateVisibility={setCreateVisibility}></CreateCard>
-            <DeleteCard deleteVisibility={deleteVisibility} setDeleteVisibility={setDeleteVisibility}></DeleteCard>
-            <EditCard editVisibility={editVisibility} setEditVisibility={setEditVisibility}></EditCard>
+        <div className={`relative h-screen ${openModal ? 'overflow-hidden' : ''}`}>
+
+            {openModal === "create" ?
+                <div className='fixed inset-0 flex justify-center items-center w-screen z-10 bg-opacity-50 bg-black'>
+                    <CreateCard setCards={setCards} setOpenModal={setOpenModal} email={email} />
+                </div> : null
+            }
+
+            {openModal === "edit" ?
+                <div className='fixed inset-0 flex justify-center items-center w-screen z-10 bg-opacity-50 bg-black'>
+                    <EditCard activeCard={activeCard} setCards={setCards} setOpenModal={setOpenModal} />
+                </div> : null
+            }
+
+            {openModal === "delete" ?
+                <div className='fixed inset-0 flex justify-center items-center w-screen z-10 bg-opacity-50 bg-black'>
+                    <DeleteCard activeCard={activeCard} setCards={setCards} setOpenModal={setOpenModal} />
+                </div> : null
+            }
+
             <Navbar email={email} setAuthorized={setAuthorized}></Navbar>
-            <div className='px-2'>
-                <button onClick={() => setCreateVisibility(true)} className='w-full sm:w-max px-4 sm:px-5 py-2 sm:py-3 m my-2 sm:my-3 text-bold border rounded-[15px] bg-amber-400 hover:bg-amber-500'>Create Card</button>
+            <div className='mx-2 lg:mx-5 px-2'>
+                <button onClick={() => setOpenModal('create')} className='w-full sm:w-max px-4 sm:px-5 py-2 sm:py-3 m my-2 sm:my-3 text-bold border rounded-[15px] bg-amber-400 hover:bg-amber-500'>Create Card</button>
             </div>
-            <div className='flex flex-wrap items-stretch'>
-                <TodoCard setDeleteVisibility={setDeleteVisibility} setEditVisibility={setEditVisibility}></TodoCard>
-                <TodoCard setDeleteVisibility={setDeleteVisibility} setEditVisibility={setEditVisibility}></TodoCard>
-                <TodoCard setDeleteVisibility={setDeleteVisibility} setEditVisibility={setEditVisibility}></TodoCard>
-                <TodoCard setDeleteVisibility={setDeleteVisibility} setEditVisibility={setEditVisibility}></TodoCard>
-                <TodoCard setDeleteVisibility={setDeleteVisibility} setEditVisibility={setEditVisibility}></TodoCard>
-                <TodoCard setDeleteVisibility={setDeleteVisibility} setEditVisibility={setEditVisibility}></TodoCard>
-                <TodoCard setDeleteVisibility={setDeleteVisibility} setEditVisibility={setEditVisibility}></TodoCard>
-                <TodoCard setDeleteVisibility={setDeleteVisibility} setEditVisibility={setEditVisibility}></TodoCard>
+
+            <div className='grid sm:grid-cols-2 lg:grid-cols-3 p-2 lg:p-5'>
+                {filteredCards.length ? filteredCards.map((card) => {
+                    <TodoCard setActiveCard={setActiveCard} setOpenModal={setOpenModal} key={card.id} data={card} />
+                }) : <p className='col-span-3 text-center font-bold'>No cards found</p>}
             </div>
         </div>
     )
