@@ -42,9 +42,9 @@ function Mainpage({ setAuthorized, email }) {
             </div>
 
             <div className='grid sm:grid-cols-2 lg:grid-cols-3 p-2 lg:p-5'>
-                {filteredCards.length ? filteredCards.map((card) => {
-                    <TodoCard setActiveCard={setActiveCard} setOpenModal={setOpenModal} key={card.id} data={card} />
-                }) : <p className='col-span-3 text-center font-bold'>No cards found</p>}
+                {filteredCards.length ? filteredCards.map((card) => (<TodoCard setActiveCard={setActiveCard} setOpenModal={setOpenModal} key={card.id} data={card} />)
+                    
+                ) : <p className='col-span-3 text-center font-bold'>No cards found</p>}
             </div>
         </div>
     )
