@@ -27,9 +27,9 @@ function EditCard({ setOpenModal, setCards, activeCard }) {
             <h3 className='text-2xl font-bold'>EDIT CARD</h3>
             <div className='flex flex-col mt-5 text-center sm:text-left w-full'>
                 <label className='text-xl text-zinc-400' htmlFor="">Title</label>
-                <input onChange={(e) => handleChange(e)} value={formData.title} className='py-3 px-2 mt-2 border rounded-[6px]' type="text" name="title" />
+                <input required onChange={(e) => handleChange(e)} value={formData.title} className='py-3 px-2 mt-2 border rounded-[6px]' type="text" name="title" />
                 <label className='text-xl mt-2 text-zinc-400' htmlFor="">Description</label>
-                <input onChange={(e) => handleChange(e)} value={formData.description} className='py-3 px-2 mt-2 border rounded-[6px]' type="text" name="description" id="" />
+                <input required onChange={(e) => handleChange(e)} value={formData.description} className='py-3 px-2 mt-2 border rounded-[6px]' type="text" name="description" id="" />
             </div>
             <div className='flex justify-center sm:justify-end sm:items-center w-full mt-5'>
                 <button onClick={() => setOpenModal('')} className='px-5 py-3 border rounded-[15px] mx-2 bg-white hover:bg-[#DFDFDF]'>Close</button>

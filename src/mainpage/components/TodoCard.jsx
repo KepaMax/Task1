@@ -5,9 +5,9 @@ function TodoCard({ setOpenModal, setActiveCard, data }) {
         <div className='w-full h-full my-2 mx-0 sm:mx-3 sm:w-auto sm:min-h-[330px] rounded-[20px] '>
             <div className='flex py-5 flex-col rounded-t-[7px] h-auto items-center justify-center px-3 bg-zinc-200'>
                 <div className='w-full text-center sm:text-left'>
-                    <h3 className='text-3xl font-bold'>{data.title}</h3>
+                    <h3 className='text-3xl truncate font-bold'>{data.title}</h3>
                 </div>
-                <p className='my-1 w-full text-center sm:text-left'>{data.description}
+                <p className='my-1 w-full truncate text-center sm:text-left'>{data.description}
                 </p>
             </div>
             <div className='flex justify-center flex-col sm:flex-row sm:justify-end items-center rounded-b-[7px] p-4 bg-zinc-300 h-auto'>
