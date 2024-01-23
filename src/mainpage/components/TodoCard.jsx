@@ -16,7 +16,7 @@ function TodoCard({ dispatch, setActiveCard, data }) {
                     dispatch({ type: 'edit' })
                 }} className='mx-3 sm:mx-1 text-xl w-full sm:w-auto font-bold rounded-[7px] h-3/5 py-2 px-6 bg-[#f6b819] hover:bg-yellow-700'>Edit</button>
                 <button onClick={() => {
-                    setActiveCard(data)
+                    setActiveCard(data._id)
                     dispatch({ type: 'delete' })
                 }} className='mx-3 sm:mx-1 mt-4 sm:mt-0 text-xl w-full sm:w-auto font-bold rounded-[7px] h-3/5 py-2 px-5 bg-[#f6b819] hover:bg-yellow-700'>Delete</button>
             </div>

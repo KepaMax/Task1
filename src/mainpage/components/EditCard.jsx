@@ -1,12 +1,30 @@
 import { useState } from 'react'
 
-function EditCard({ dispatch, setCards, activeCard }) {
+function EditCard({ dispatch, activeCard }) {
     const [formData, setFormData] = useState({
         title: activeCard.title,
         description: activeCard.description,
     });
 
-    // Function to handle input changes
+    const updateCard = async () => {
+        try {
+            const request = await fetch(`http://localhost:3000/cards/${activeCard._id}`,
+            {
+                method: "PUT",
+                mode: "cors",
+                body: JSON.stringify(formData),
+                headers: 
+                {
+                    "Content-type": "application/json"
+                }
+            })
+            const response = await request.json()
+            console.log(response)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prevData => ({
@@ -14,10 +32,10 @@ function EditCard({ dispatch, setCards, activeCard }) {
             [name]: value,
         }));
     };
-    const handleSave = (e) => {
+
+    const handleSave = async (e) => {
         e.preventDefault()
-        const updatedCard = { ...activeCard, ...formData };
-        setCards((prevValue) => prevValue.map(card => card.id === activeCard.id ? updatedCard : card))
+        updateCard();
         dispatch({ type: 'reset' });
     };
 
@@ -33,7 +51,7 @@ function EditCard({ dispatch, setCards, activeCard }) {
             </div>
             <div className='flex justify-center sm:justify-end sm:items-center w-full mt-5'>
                 <button onClick={() => dispatch({ type: 'reset' })} className='px-5 py-3 border rounded-[15px] mx-2 bg-white hover:bg-[#DFDFDF]'>Close</button>
-                <button onClick={(e) => handleSave(e)} className='px-5 py-3 border rounded-[15px] mx-2 bg-amber-400 hover:bg-amber-500'>Save</button>
+                <button onClick={async(e) =>await handleSave(e)} className='px-5 py-3 border rounded-[15px] mx-2 bg-amber-400 hover:bg-amber-500'>Save</button>
             </div>
         </div>
     )
