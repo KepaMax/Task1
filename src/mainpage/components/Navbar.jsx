@@ -11,7 +11,7 @@ function Navbar() {
       <button
         onClick={() => { 
           setAuthorized(false) 
-          navigate("/login")
+          navigate("/login",{state: "Something in the way"})
         }}
         className='text-xl font-bold rounded-[7px] mb-4 sm:mb-0 h-2/4 px-6 sm:px-10 py-2 sm:py-0 bg-[#f6b819] hover:bg-yellow-700'>Log out</button>
     </div>

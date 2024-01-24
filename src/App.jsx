@@ -5,6 +5,7 @@ import Mainpage from './mainpage/Mainpage'
 import Context from './ContextWrapper'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import NotFound from './components/NotFound'
+import Details from './mainpage/components/Details'
 
 function App() {
   const { authorized } = useContext(Context)
@@ -15,6 +16,7 @@ function App() {
 
       {authorized ? <Route path='/mainpage' element={<Mainpage />} /> :
       <Route path='/login' element={<Login />} />}
+      <Route path='details/:message' element={<Details />}></Route>
 
       <Route path='*' element={< NotFound />} />
     </Routes>

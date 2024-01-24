@@ -1,12 +1,15 @@
-import { useState, useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState, useContext, useEffect } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 import Context from '../../ContextWrapper'
 
 function LoginCard() {
-  const {email, setAuthorized, setEmail} = useContext(Context)
+  const { email, setAuthorized, setEmail } = useContext(Context)
+  const location = useLocation()
+  const text = location.state
   const navigate = useNavigate()
   const [isValid, setValidation] = useState(false)
 
+  useEffect(() => console.log(text), [])
   return (
     <form className='flex flex-col items-center justify-center w-screen sm:w-[700px] h-screen sm:h-[310px] shadow-md shadow-zinc-300 rounded-[13px]'>
       <h2 className='text-3xl font-bold mb-5'>Login Form</h2>
@@ -21,7 +24,8 @@ function LoginCard() {
       </div>
       <button type='submit' disabled={!isValid}
         onClick={
-          () => {setAuthorized(isValid)
+          () => {
+            setAuthorized(isValid)
             navigate("/mainpage")
           }
 
