@@ -1,4 +1,8 @@
-function DeleteCard({ dispatch, activeCard }) {
+import { useContext } from "react"
+import Context from '../../ContextWrapper';
+
+function DeleteCard({ activeCard }) {
+    const { getCards, dispatch } = useContext(Context)
     const deleteCard = async () => {
         try {
             const request = await fetch(`http://localhost:3000/cards/${activeCard}`,
@@ -6,8 +10,12 @@ function DeleteCard({ dispatch, activeCard }) {
                 method: "DELETE",
                 mode: "cors"
             })
-            const response = await request.json()
-            console.log(response)
+            if (request.ok) {
+                const response = await request.json()
+                getCards();
+                console.log(response)
+                dispatch({ type: "reset" })
+            }
         } catch (error) {
             console.log(error)
         }
@@ -16,7 +24,6 @@ function DeleteCard({ dispatch, activeCard }) {
     const handleDelete = async (e) => {
         e.preventDefault();
         deleteCard();
-        dispatch({ type: 'reset' });
     }
 
         return (

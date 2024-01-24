@@ -1,22 +1,28 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import Context from '../../ContextWrapper'
 
-function CreateCard({ dispatch, email }) {
+function CreateCard({ email }) {
+    const { getCards, dispatch } = useContext(Context)
     const [formData, setFormData] = useState({})
 
-    const createCard = async ()=>{
+    const createCard = async () => {
         try {
             const request = await fetch("http://localhost:3000/cards",
-            {
-                method: "POST",
-                mode: "cors",
-                body: JSON.stringify(formData),
-                headers: 
                 {
-                    "Content-type": "application/json"
-                }
-            })
-            const response = await request.json()
-            console.log(response)
+                    method: "POST",
+                    mode: "cors",
+                    body: JSON.stringify(formData),
+                    headers:
+                    {
+                        "Content-type": "application/json"
+                    }
+                })
+            if (request.ok) {
+                getCards()
+                const response = await request.json()
+                console.log(response)
+                dispatch({ type: "reset" })
+            }
         } catch (error) {
             console.log(error)
         }
@@ -35,7 +41,6 @@ function CreateCard({ dispatch, email }) {
     const handleCreate = async (e) => {
         e.preventDefault();
         createCard();
-        dispatch({type: "reset"})
     }
 
     return (

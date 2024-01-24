@@ -1,8 +1,10 @@
 import { useState, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Context from '../../ContextWrapper'
 
 function LoginCard() {
   const {email, setAuthorized, setEmail} = useContext(Context)
+  const navigate = useNavigate()
   const [isValid, setValidation] = useState(false)
 
   return (
@@ -18,7 +20,12 @@ function LoginCard() {
           className={`${isValid || email == '' ? 'border-zinc-300' : 'bg-red-200 text-red-400'} border rounded-[6px] my-2 px-2`} />
       </div>
       <button type='submit' disabled={!isValid}
-        onClick={() => setAuthorized(isValid)}
+        onClick={
+          () => {setAuthorized(isValid)
+            navigate("/mainpage")
+          }
+
+        }
         className={`${isValid ? 'bg-[#f6b819] hover:bg-yellow-700' : 'bg-[#d7d7d7] pointer-events-none'} px-5 py-2 rounded-[7px] `}>Submit</button>
     </form>
   )

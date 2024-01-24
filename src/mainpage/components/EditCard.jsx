@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import Context from '../../ContextWrapper';
 
-function EditCard({ dispatch, activeCard }) {
+function EditCard({ activeCard }) {
+    const { getCards, dispatch } = useContext(Context)
     const [formData, setFormData] = useState({
         title: activeCard.title,
         description: activeCard.description,
@@ -9,17 +11,21 @@ function EditCard({ dispatch, activeCard }) {
     const updateCard = async () => {
         try {
             const request = await fetch(`http://localhost:3000/cards/${activeCard._id}`,
-            {
-                method: "PUT",
-                mode: "cors",
-                body: JSON.stringify(formData),
-                headers: 
                 {
-                    "Content-type": "application/json"
-                }
-            })
-            const response = await request.json()
-            console.log(response)
+                    method: "PUT",
+                    mode: "cors",
+                    body: JSON.stringify(formData),
+                    headers:
+                    {
+                        "Content-type": "application/json"
+                    }
+                })
+            if (request.ok) {
+                const response = await request.json()
+                getCards()
+                console.log(response)
+                dispatch({ type: "reset" })
+            }
         } catch (error) {
             console.log(error)
         }
@@ -36,7 +42,6 @@ function EditCard({ dispatch, activeCard }) {
     const handleSave = async (e) => {
         e.preventDefault()
         updateCard();
-        dispatch({ type: 'reset' });
     };
 
     return (
@@ -51,7 +56,7 @@ function EditCard({ dispatch, activeCard }) {
             </div>
             <div className='flex justify-center sm:justify-end sm:items-center w-full mt-5'>
                 <button onClick={() => dispatch({ type: 'reset' })} className='px-5 py-3 border rounded-[15px] mx-2 bg-white hover:bg-[#DFDFDF]'>Close</button>
-                <button onClick={async(e) =>await handleSave(e)} className='px-5 py-3 border rounded-[15px] mx-2 bg-amber-400 hover:bg-amber-500'>Save</button>
+                <button onClick={async (e) => await handleSave(e)} className='px-5 py-3 border rounded-[15px] mx-2 bg-amber-400 hover:bg-amber-500'>Save</button>
             </div>
         </div>
     )
